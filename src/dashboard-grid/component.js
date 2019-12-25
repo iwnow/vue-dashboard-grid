@@ -3,5 +3,8 @@ export default {
 		return {
 			name: 'test component'
 		}
-	}
+	},
+	template: `
+		<span>hello {{ name }}</span>
+	`
 }

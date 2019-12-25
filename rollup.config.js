@@ -17,17 +17,6 @@ export default [
         },
         plugins: [
 			embedCSS(),
-            // live reload if dev
-            !production && livereload(),
-            !production && serve('dist'),
-            !production && html({
-                template: path.resolve(__dirname, 'src/demo-app/index.html'),
-				filename: 'index.html',
-				extenrals: [
-					{ type: 'js', file: 'demo-app.js' }
-				]
-              }),
-            // minify if prod
             production && terser()
         ],
         watch: {
@@ -38,10 +27,22 @@ export default [
 		input: path.resolve(__dirname, 'src/demo-app/index.js'),
 		output: {
 			format: 'iife',
-            file: path.resolve(__dirname, 'dist/demo-app.js'),
+			file: path.resolve(__dirname, 'dist/demo-app.js'),
+			globals: {
+				vue: 'Vue'
+			}
 		},
-		globals: {
-			vue: 'Vue'
-		}
+		plugins: [
+			// live reload if dev
+            !production && livereload(),
+            !production && serve({
+				contentBase: ['dist', 'node_modules'],
+			}),
+            !production && html({
+                template: path.resolve(__dirname, 'src/demo-app/index.html'),
+				filename: 'index.html',
+              }),
+		],
+		external: ['vue'],
 	}
 ];
