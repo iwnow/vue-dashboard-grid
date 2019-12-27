@@ -1,11 +1,11 @@
+import cjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import path from 'path';
 import html from 'rollup-plugin-fill-html';
 import livereload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
 import { terser } from 'rollup-plugin-terser';
-import vue from 'rollup-plugin-vue'
-import cjs from '@rollup/plugin-commonjs';
-import nodeResolve from '@rollup/plugin-node-resolve';
+import vue from 'rollup-plugin-vue';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -15,9 +15,6 @@ export default [
 		output: {
 			format: 'iife',
 			file: path.resolve(__dirname, 'dist/demo-app.js'),
-			globals: {
-				Vue: 'Vue'
-			}
 		},
 		plugins: [
 			// live reload if dev

@@ -1,3 +1,7 @@
+# npm ci on macosx and windows fails because of fsevents
+# only clean npm i is ok, so we don't need package-lock
+package-lock.json
+
 node_modules
 dist
 
