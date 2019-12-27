@@ -1,10 +1,12 @@
 <template>
     <div class="grid">
         grid test
+		<slot></slot>
     </div>
 </template>
 
 <script>
+
 export default {
 
 }
