@@ -29,7 +29,7 @@ export default [
                 template: path.resolve(__dirname, './apps/demo-app/index.html'),
 				filename: 'index.html',
 				externals: [
-					{ type: 'js', file: 'vue/dist/vue.js', pos: 'before' },
+					{ type: 'js', file: 'vue/dist/vue.min.js', pos: 'before' },
 					{
 						type: 'js',
 						file: 'umd/vue-dashboard-grid.umd.js',

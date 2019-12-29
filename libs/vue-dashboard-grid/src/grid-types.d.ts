@@ -1,4 +1,4 @@
-import { WidgetBase, WidgetConfig } from './widget';
+import { WidgetBase, WidgetConfig } from './widget-types';
 import { DomRenderer } from './dom-renderer';
 import { GridRendererService } from './renderer.service';
 import { GridEmptyCellService } from './empty-cell.service';

@@ -107,3 +107,7 @@ export function merge(obj1, obj2, properties) {
       return 1;
     }
   }
+
+  export function copy(o) {
+    return JSON.parse(JSON.stringify(o));
+  }

@@ -1,25 +1,84 @@
 <template>
     <div class="dgrid">
-        
-        <!-- <div class="dgrid-column" *ngFor="let column of gridColumns; let i = index;"
-            :style="gridRenderer.getGridColumnStyle(i)"></div>
-        <div class="dgrid-row" *ngFor="let row of gridRows; let i = index;"
-            :style="gridRenderer.getGridRowStyle(i)"></div> -->
-<slot></slot>
+        <div class="dgrid-column"
+            v-for="(column, cIdx) in gridColumns" :key="'c' + cIdx"
+            :style="getGridColumnStyle(cIdx)"></div>
+        <div class="dgrid-row" v-for="(row, rIdx) in gridRows" :key="'r' + rIdx"
+            :style="getGridRowStyle(rIdx)"></div>
+        <slot></slot>
         <dgrid-preview class="dgrid-preview"></dgrid-preview>
     </div>
 </template>
 
 <script>
 import Preview from './preview.vue';
-import { createGridInstance } from './grid.js';
+import { createGridInstance } from './grid-logic';
+
+function createProvider() {
+  const cbs = [];
+  return {
+    value: null,
+    emit(data) {
+      this.value = data;
+      cbs.forEach(cb => cb && cb(data));
+    },
+    subscribe(cb) {
+      cbs.push(cb);
+    }
+  }
+}
 
 export default {
     components: {
         'dgrid-preview': Preview
     },
+    props: {
+      config: Object
+    },
+    data() {
+      return {
+        gridModel: null
+      }
+    },
+    provide() {
+      this.provider = createProvider();
+      return {
+        provider: this.provider
+      }
+    },
+    watch: {
+      config: function (newVal, oldVal) {
+        this.gridModel.onOptionChanged(newVal);
+      }
+    },
+    computed: {
+        gridColumns: function() {
+          const cols = this.gridModel && this.gridModel.gridColumns;
+          return cols;
+        },
+        gridRows: function() {
+          const rows = this.gridModel && this.gridModel.gridRows;
+          return rows;
+        }
+    },
+    methods: {
+      getGridColumnStyle(i) {
+        return this.gridModel.gridRenderer.getGridColumnStyle(i);
+      },
+      getGridRowStyle(i) {
+        return this.gridModel.gridRenderer.getGridRowStyle(i);
+      }
+    },
     mounted() {
-        this.gridModel = createGridInstance(this.$el);
+        const gridModel = createGridInstance(this.$el);
+        gridModel.onOptionChanged(this.config);
+        gridModel.onInit();
+        this.provider.emit(gridModel);
+        this.gridModel = gridModel;
+    },
+    beforeDestroy() {
+        this.gridModel.onDestroy();
+        this.gridModel = undefined;
     }
 }
 </script>

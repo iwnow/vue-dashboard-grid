@@ -1,7 +1,7 @@
-import { GridBase } from './grid';
+import { GridBase } from './grid-types';
 import { DomRenderer } from './dom-renderer';
-import { GridResizeService } from './grid/resize.service';
-import { GridDragService } from './grid/drag.service';
+import { GridResizeService } from './resize.service';
+import { GridDragService } from './drag.service';
 
 interface WidgetConfig {
     x: number;
