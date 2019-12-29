@@ -9,14 +9,18 @@
 		html, body, .demo-app {
 			min-width: 100%;
 			min-height: 100%;
+			padding: 0;
+			margin: 0;
 		}
 	</style>
 </head>
 <body>
 	<div class="demo-app" id="app">
-		<dashboard-grid>
-			<dashboard-grid-widget></dashboard-grid-widget>
-		</dashboard-grid>
+		<grid :config="gridConfig">
+			<widget v-for="(item, index) in items" :config="item" :key="index">
+				widget X
+			</widget>
+		</grid>
 	</div>
 </body>
 </html>

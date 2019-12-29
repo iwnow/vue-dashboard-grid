@@ -18,7 +18,10 @@ export default [
 		},
 		plugins: [
 			// live reload if dev
-            !production && livereload(),
+            !production && livereload({
+				watch: 'dist',
+				delay: 1000
+			}),
             !production && serve({
 				contentBase: ['dist', 'node_modules'],
 			}),
@@ -40,7 +43,7 @@ export default [
 	{
         input: path.resolve(__dirname, 'libs/vue-dashboard-grid/index.js'),
         output: {
-            name: 'vex.components',
+            name: '@iwnow/vue-dashboard-grid',
             format: 'umd',
             file: path.resolve(__dirname, `dist/umd/vue-dashboard-grid.umd${production ? 'min' : ''}.js`),
         },

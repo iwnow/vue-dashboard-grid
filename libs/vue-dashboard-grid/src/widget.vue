@@ -1,6 +1,6 @@
 <template>
   <div>
-	  widget
+	  <slot></slot>
   </div>
 </template>
 

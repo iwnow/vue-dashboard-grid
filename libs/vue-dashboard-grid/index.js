@@ -1,7 +1,7 @@
-import DashboardGridWidgetComponent from './src/dashboard-grid-widget.vue';
-import DashboardGridComponent from './src/dashboard-grid.vue';
+import Grid from './src/grid.vue';
+import Widget from './src/widget.vue';
 
 export {
-	DashboardGridComponent,
-	DashboardGridWidgetComponent
+    Grid,
+    Widget
 }
